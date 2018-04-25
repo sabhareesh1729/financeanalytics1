@@ -14,19 +14,17 @@ omni1
 
 
 #2nd Method : CSV file
-df3 =read.csv("./data/mlr.csv") #TO import the csv file into R studio-----Way1
-str(df3)
-df3
-df=df3
+omni3 =read.csv("./data/mlr.csv") #TO import the csv file into R studio-----Way1
+str(omni3)
+omni3
+omni=omni3
 #omni2 = read.csv(file.choose())
 
 #3rd Method : gsheet 
 library(gsheet)
 url = "https://docs.google.com/spreadsheets/d/1h7HU0X_Q4T5h5D1Q36qoK40Tplz94x_HZYHOJJC_edU/edit#gid=1595306231"
-omni3 = as.data.frame(gsheet::gsheet2tbl(url))
+omni2 = as.data.frame(gsheet::gsheet2tbl(url))
 
-#Make one of data frames active
-omni = omni1
 
 ?lm  #see help of LM
 #Simple Linear Model would look like this
@@ -43,7 +41,7 @@ mlrmodel1 = lm(formula = sales ~ price + promotion, data=omni)
 mlrmodel1 = lm( data=omni, formula = sales ~ price + promotion)
 
 # summary statistics of model IMP STEP
-
+summary(mlrmodel1)
 #understand values : R2, AdjR2, Fstats pvalue, Coeff, ***, Residuals
 
 #coefficients b1, b2
@@ -51,14 +49,20 @@ mlrmodel1 = lm( data=omni, formula = sales ~ price + promotion)
 
 
 #Predicted Values----
-
+fitted(mlrmodel1)
+fitted(mlrmodel1)
+cbind(sales,fitted(mlrmodel1))
+names(omni1)
 #create a dataframe of new sample values
-(ndata1 = data.frame(price=c(60,70), promotion=c(300,400)))
-
+(ndata1 = data.frame(price=c(60,70,80,90), promotion=c(300,400,500,600)))
+predictY=predict(mlrmodel1, newdata= ndata1) # Predict Function for 5 values of X
+cbind(ndata1,predictY)
 #cbind the values
 
-
-
+coef(mlrmodel1)
+coef(mlrmodel1)[1]
+coef(mlrmodel1)[2]
+coef(mlrmodel1)[3]
 
 
 #Plots of the Modle
